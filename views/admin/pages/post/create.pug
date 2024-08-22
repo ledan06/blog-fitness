@@ -1,0 +1,113 @@
+extends ../../layouts/default.pug 
+include ../../mixins/alert.pug
+
+block main 
+    +alert-success(5000)
+    h1(class="mb-4") Tạo bài viết mới 
+    
+    form(
+        action=`${prefixAdmin}/posts/create`
+        id="form-create-post"
+        method="POST"
+        enctype="multipart/form-data"
+    )
+        div(class="form-group")
+            label(for="title") Tiêu đề
+            input(
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+                required
+                )
+        div(class="form-group form-check form-check-inline")
+            input(
+                type="radio"
+                class="form-check-input"
+                id="featured1"
+                name="featured"
+                value="1"
+                )
+            label(for="featured1" class="form-check-label") Nổi bật
+        div(class="form-group form-check form-check-inline")
+            input(
+                type="radio"
+                class="form-check-input"
+                id="featured0"
+                name="featured"
+                value="0"
+                checked
+                )
+            label(for="featured0" class="form-check-label") Không
+        div(
+            class="form-group"
+            upload-image
+        )
+            label(for="thumbnail") Ảnh
+            input(
+                type="file"
+                class="form-control-file"
+                id="thumbnail"
+                name="thumbnail"
+                accept="image/*"
+                upload-image-input
+            )
+            div(
+                class="image-container"
+            )
+                img(
+                    src=""
+                    upload-image-preview 
+                    class="image-preview"
+                )
+                button(
+                    class="delete-button"
+                    delete-image
+                    ) X
+        div(class="form-group")
+            label(for="desc") Nội dung
+            textarea(
+                class="form-control"
+                id="desc"
+                name="description"
+                rows="5"
+                )
+        .box-search 
+            form(
+                action="/search/suggest"
+                method="GET"
+            )
+                div(class="form-group")
+                    label(for="hashtag") Nhãn
+                    input(
+                        type="text"
+                        class="form-control"
+                        id="hashtag"
+                        name="hashtag"
+                        )
+        div(class="form-group form-check form-check-inline")
+            input(
+                type="radio"
+                class="form-check-input"
+                id="statusPosted"
+                name="status"
+                value="posted"
+                checked
+                )
+            label(for="statusPosted" class="form-check-label") Đăng
+        div(class="form-group form-check form-check-inline")
+            input(
+                type="radio"
+                class="form-check-input"
+                id="statusDraft"
+                name="status"
+                value="draft"
+                )
+            label(for="statusDraft" class="form-check-label") Bản Nháp
+        div(class="form-group")
+            button(
+                type="submit"
+                class="btn btn-primary"
+            ) Xuất bản
+
+    script(src="/admin/js/post.js")

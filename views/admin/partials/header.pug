@@ -1,0 +1,39 @@
+
+header.header 
+    .container-fluid 
+        .row.align-items-center    
+            .col-3 
+                .inner-logo 
+                    a(href="/admin/dashboard") ADMIN 
+
+            .col-5 
+                .box-search 
+                    form(
+                        action="/admin/search"
+                        method="GET"
+                    )
+                        div(class="form-group d-flex mb-6")
+                            input(
+                                type="text"
+                                placeholder="Nhập từ khóa..."
+                                class= "form-control"
+                                name="keyword"
+                                value=keyword
+                            )
+                            button(
+                                type="submit"
+                                class="btn btn-primary"
+                            ) Tìm
+                    .inner-suggest
+                        .inner-list 
+            
+            .col-4
+                .text-right
+                    a(
+                        href=`${prefixAdmin}/my-account`
+                        class="btn btn-primary btn-sm mr-2 user-name"
+                    ) Lê Văn A
+                    a(
+                        href=`${prefixAdmin}/auth/logout`
+                        class="btn btn-danger btn-sm logout-btn"
+                    ) Đăng xuất
