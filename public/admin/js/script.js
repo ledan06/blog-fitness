@@ -41,7 +41,3 @@ if (showAlert) {
 }
 
 // End Show Alert
-
-//Search
-const boxSearch = document.querySelector(".box-search")
-//End Search

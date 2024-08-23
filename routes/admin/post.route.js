@@ -21,5 +21,8 @@ router.patch(
     controller.editPatch
 )
 
+router.get('/suggest', controller.suggest)
+
+
 
 module.exports = router;

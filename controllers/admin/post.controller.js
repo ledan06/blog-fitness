@@ -1,5 +1,6 @@
 const systemConfig = require("../../config/system")
 const hashtagHelper = require("../../helper/hashtag.helper")
+const convertToSlugHelper = require("../../helper/convertToSlug")
 const Hashtag = require("../../models/hashtag.model")
 const Post = require("../../models/post.model")
 //[GET] admin/blogs
@@ -120,4 +121,37 @@ module.exports.editPatch = async (req, res)=>{
     req.flash("success", "Sửa bài viết thành công")
 
     res.redirect("back")
+}
+
+
+//[GET] admin/search/suggest
+module.exports.suggest = async (req, res)=>{
+    const keyword = req.query.keyword
+    
+    let newHashtag = []
+    if(keyword){
+        const keywordRegex = new RegExp(keyword, "i")
+
+        const stringSlug = convertToSlugHelper.convertToSlug(keyword)
+        const stringSlugRegex = new RegExp(stringSlug, "i")
+
+        const hashtag = await Hashtag.find({
+            $or: [
+                { title: keywordRegex },
+                { slug: stringSlugRegex}
+            ]
+        })
+        for (const item of hashtag) {
+            newHashtag.push({
+                hashtag: item.title
+            })
+        }
+        
+    }
+    
+    res.json({
+        code:200,
+        message: "Thành công!",
+        hashtag: newHashtag
+    })
 }

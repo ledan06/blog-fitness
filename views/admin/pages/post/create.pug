@@ -72,19 +72,18 @@ block main
                 name="description"
                 rows="5"
                 )
-        .box-search 
-            form(
-                action="/search/suggest"
-                method="GET"
-            )
-                div(class="form-group")
-                    label(for="hashtag") Nhãn
-                    input(
-                        type="text"
-                        class="form-control"
-                        id="hashtag"
-                        name="hashtag"
-                        )
+        .inner-hashtag
+            div(class="form-group")
+                label(for="hashtag") Nhãn
+                input(
+                    type="text"
+                    class="form-control"
+                    id="hashtag"
+                    name = "hashtag"
+                    )
+            .inner-suggest
+                .inner-list 
+                    
         div(class="form-group form-check form-check-inline")
             input(
                 type="radio"
