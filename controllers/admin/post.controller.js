@@ -1,6 +1,7 @@
 const systemConfig = require("../../config/system")
 const hashtagHelper = require("../../helper/hashtag.helper")
 const convertToSlugHelper = require("../../helper/convertToSlug")
+const isPublicHelper = require("../../helper/isPublic")
 const Hashtag = require("../../models/hashtag.model")
 const Post = require("../../models/post.model")
 //[GET] admin/blogs
@@ -26,6 +27,18 @@ module.exports.create = (req, res)=>{
 module.exports.createPost = async (req, res)=>{
     const countPosition = await Post.countDocuments()
     req.body.position =countPosition + 1
+
+    if(req.body.scheduledDate){
+        const scheduledDate = new Date(req.body.scheduledDate)
+        req.body.scheduledDate = new Date(scheduledDate.getTime() + 7 * 60 * 60 * 1000)
+        if(req.body.scheduledDate <= new Date()){
+            req.flash("success", "Thời gian hẹn không hợp lệ")
+            res.redirect("back")
+            return
+        }
+    }   
+    console.log(req.body.scheduledDate)
+
     if(req.file){
         req.body.thumbnail = `/uploads/${req.file.filename}`
     }
@@ -54,6 +67,9 @@ module.exports.createPost = async (req, res)=>{
   
     const post = new Post(req.body)
     await post.save()
+    if(!req.body.scheduledDate){
+        await isPublicHelper.publishPost(post._id)
+    }
     req.flash("success", "Tạo bài viết thành công")
 
     res.redirect(`${systemConfig.prefixAdmin}/posts`)

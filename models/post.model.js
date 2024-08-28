@@ -15,6 +15,15 @@ const postSchema = new mongoose.Schema(
             slug: "title",
             unique: true
         },
+        //Hẹn giờ bài đăng
+        scheduledDate: {
+            type: Date,
+            required: false,
+        },
+        isPublished: {
+            type: Boolean,
+            default: false,
+        },
         createdBy: {
             account_id: String,
             createAt: {

@@ -8,7 +8,7 @@ const session = require('express-session')
 const flash = require('express-flash')
 const database = require("./config/database")
 
-
+const cronJobs = require('./helper/cronJobs'); 
 const adminRoute = require("./routes/admin/index.route")
 
 database.connect()
@@ -18,6 +18,8 @@ const systemConfig = require("./config/system")
 const app = express()
 const port = process.env.PORT
 
+//Đặt thời gian đăng bài 
+cronJobs()
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
