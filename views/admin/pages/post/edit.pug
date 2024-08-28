@@ -85,6 +85,10 @@ block main
                 name="hashtag"
                 value = post.infoHashtags
                 )
+        div(class="form-group datetime")
+            label(for="scheduledDate" ) Hẹn giờ đăng
+            input(type="datetime-local" name="scheduledDate" value=post.date) 
+
         div(class="form-group form-check form-check-inline")
             input(
                 type="radio"

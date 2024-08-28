@@ -37,7 +37,6 @@ module.exports.createPost = async (req, res)=>{
             return
         }
     }   
-    console.log(req.body.scheduledDate)
 
     if(req.file){
         req.body.thumbnail = `/uploads/${req.file.filename}`
@@ -78,11 +77,16 @@ module.exports.createPost = async (req, res)=>{
 
 //[GET] admin/posts/edit/:id
 module.exports.edit = async (req, res)=>{
+    const formatDate = (date) => {
+        return date.toISOString().slice(0, 16);
+    };
     const id = req.params.id
     const post = await Post.findOne({
         _id: id,
         deleted: false
     })
+    const date = post.scheduledDate ? formatDate(post.scheduledDate) : ''
+    post.date = date
     const hashtagId = post.hashtag
         for (let i = 0; i < hashtagId.length; i++) {
        
@@ -108,9 +112,22 @@ module.exports.editPatch = async (req, res)=>{
     if(req.file){
         req.body.thumbnail = `/uploads/${req.file.filename}`
     }
+
+    if(req.body.scheduledDate){
+        const scheduledDate = new Date(req.body.scheduledDate)
+        req.body.scheduledDate = new Date(scheduledDate.getTime() + 7 * 60 * 60 * 1000)
+        if(req.body.scheduledDate <= new Date()){
+            req.flash("success", "Thời gian hẹn không hợp lệ")
+            res.redirect("back")
+            return
+        }
+    }  
+
+    if(!req.body.scheduledDate){
+        await isPublicHelper.publishPost(id)
+    }
   
     const hashtag = req.body.hashtag
-    console.log(hashtag)
     let hashtagId=[]
     for (let i = 0; i < hashtag.length; i++) {
        
@@ -130,9 +147,9 @@ module.exports.editPatch = async (req, res)=>{
     }
    
     req.body.hashtag = hashtagId
-    console.log(req.body.hashtag)
 
     await Post.updateOne({_id: id }, req.body)
+    
 
     req.flash("success", "Sửa bài viết thành công")
 
