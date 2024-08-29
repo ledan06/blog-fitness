@@ -6,28 +6,7 @@ header.header
                 .inner-logo 
                     a(href="/admin/dashboard") ADMIN 
 
-            .col-5 
-                .box-search 
-                    form(
-                        action="/admin/search"
-                        method="GET"
-                    )
-                        div(class="form-group d-flex mb-6")
-                            input(
-                                type="text"
-                                placeholder="Nhập từ khóa..."
-                                class= "form-control"
-                                name="keyword"
-                                value=keyword
-                            )
-                            button(
-                                type="submit"
-                                class="btn btn-primary"
-                            ) Tìm
-                    .inner-suggest
-                        .inner-list 
-            
-            .col-4
+            .col-9
                 .text-right
                     a(
                         href=`${prefixAdmin}/my-account`

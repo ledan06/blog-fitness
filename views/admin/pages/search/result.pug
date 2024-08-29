@@ -1,13 +1,21 @@
 extends ../../layouts/default.pug 
 include ../../mixins/form-change-multi.pug
 include ../../mixins/alert.pug 
+include ../../mixins/search.pug
+
 
 
 block main 
     +alert-success(5000)
     h1 Danh sách bài viết
 
-
+    .card.mb-3 
+        .card-header Bộ lọc và tìm kiếm 
+        .card-body 
+            .row 
+                .col-6 
+                    +search(keyword)
+                .col6 
     .card.mb-3 
         .card-header Danh sách
         .card-body 
