@@ -8,7 +8,7 @@ const Post = require("../../models/post.model")
 module.exports.index = async(req, res)=>{
     const posts = await Post.find({
         deleted: false
-    })
+    }).sort({position: "desc"})
     await hashtagHelper.hashtag(posts)
     res.render("admin/pages/post/index", {
         pageTitle: "Danh sách bài viết",
@@ -187,4 +187,26 @@ module.exports.suggest = async (req, res)=>{
         message: "Thành công!",
         hashtag: newHashtag
     })
+}
+
+//[DELETE] admin/posts/delete/:id
+module.exports.delete = async (req, res)=>{
+    const id = req.params.id
+    await Post.updateOne({_id: id }, {deleted: true})
+    req.flash("success", "Xóa bài viết thành công")
+
+    res.redirect("back")
+    
+}
+
+//[Patch] /admin/posts/change-status/:status/:id
+module.exports.changeStatus = async(req, res) => {
+    const status = req.params.status
+    const id = req.params.id;
+
+    await Post.updateOne({ _id: id }, 
+        {   status: status });
+
+    req.flash("success", "Cập nhật trạng thái thành công!")
+    res.redirect("back");
 }

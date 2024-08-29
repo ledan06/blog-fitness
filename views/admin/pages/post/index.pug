@@ -85,7 +85,7 @@ block main
                                     name="position"
                                     )
                             td
-                                if(post.status = "posted")
+                                if(post.status == "posted")
                                     a(
                                         href="javascript:;" 
                                         data-status= "posted"
@@ -99,7 +99,7 @@ block main
                                         data-status= "draft"
                                         data-id= post.id
                                         button-change-status
-                                        class="badge badge-info"
+                                        class="badge badge-secondary"
                                         ) Nháp
                             td 
                                 a(  
@@ -132,5 +132,5 @@ block main
         data-path=`${prefixAdmin}/posts/delete`
     ) 
 
-
+    script(src="/admin/js/post.js") 
 
