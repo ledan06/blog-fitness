@@ -2,17 +2,28 @@ const systemConfig = require("../../config/system")
 const hashtagHelper = require("../../helper/hashtag.helper")
 const convertToSlugHelper = require("../../helper/convertToSlug")
 const isPublicHelper = require("../../helper/isPublic")
+const filterStatusHelpers = require("../../helper/filterStatus")
 const Hashtag = require("../../models/hashtag.model")
 const Post = require("../../models/post.model")
-//[GET] admin/blogs
+//[GET] admin/posts
 module.exports.index = async(req, res)=>{
-    const posts = await Post.find({
+    let find = {
         deleted: false
-    }).sort({position: "desc"})
+    }
+    //status
+    const filterStatus = filterStatusHelpers(req.query);
+    if(req.query.status){
+        find.status = req.query.status
+    }
+    
+    const posts = await Post.find(find).sort({position: "desc"})
+
     await hashtagHelper.hashtag(posts)
+
     res.render("admin/pages/post/index", {
         pageTitle: "Danh sách bài viết",
-        posts: posts
+        posts: posts,
+        filterStatus: filterStatus
     })
 }
 
@@ -210,3 +221,40 @@ module.exports.changeStatus = async(req, res) => {
     req.flash("success", "Cập nhật trạng thái thành công!")
     res.redirect("back");
 }
+//[PATCH] /admin/posts/change-multi
+module.exports.changeMulti = async (req, res) => {
+    const type = req.body.type;
+    const ids = req.body.ids.split(", ");
+    
+    switch (type) {
+     case "posted":
+         await Post.updateMany({ _id: { $in: ids} }, {
+             status: "posted",
+            //  $push: { updatedBy: updatedBy }
+            });
+         req.flash("success", "Đăng bài viết thành công")
+         break;
+     case "draft":
+         await Post.updateMany({ _id: { $in: ids} }, { 
+            status: "draft",
+            // $push: { updatedBy: updatedBy }
+         }); 
+         req.flash("success", "Chuyển bản nháp thành công ")
+         break;
+    case "delete-all":
+        await Post.updateMany({ _id: { $in: ids} }, {
+            deleted: true,
+            // deletedBy:{
+            //     account_id: res.locals.user.id,
+            //     // deletedAt: new Date()
+            // }
+        }); 
+        req.flash("success", " Đã xóa thành công!")
+        break;
+     default:
+        req.flash("error", " Lỗi")
+         break;
+    }
+    res.redirect("back");
+    // res.send("OK")
+ }
