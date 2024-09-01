@@ -86,3 +86,47 @@ if(buttonDelete.length > 0) {
 }
 
 // Delete Post
+
+// Timer 
+const formCheck = document.querySelectorAll("[form-check-status]")
+
+if(formCheck.length > 0){
+    formCheck.forEach(item => {
+
+        if (item.value === "timer" && item.checked) {
+            const date = item.getAttribute("date")
+            const div = document.createElement("div");
+            div.classList.add("form-group", "datetime");
+            const html = `
+                <label for="scheduledDate">Hẹn giờ đăng</label>
+                <input type="datetime-local" name="scheduledDate" value="${date}" required>
+            `;
+            div.innerHTML = html;
+            item.closest('.form-group').insertAdjacentElement('afterend', div);
+        }
+
+
+
+
+        item.addEventListener("change", ()=>{
+
+            const existingDatetime = document.querySelector('.form-group.datetime');
+
+            if (existingDatetime) {
+                existingDatetime.remove();
+            }
+
+            if(item.value === "timer" && item.checked){
+                const div = document.createElement("div")
+                div.classList.add("form-group" , "datetime")
+                const html = `
+                    <label for="scheduledDate">Hẹn giờ đăng</label>
+                    <input type="datetime-local" name="scheduledDate" required>
+                    `
+                div.innerHTML = html
+                item.closest('.form-group').insertAdjacentElement('afterend', div)
+            }
+        })
+    })
+}
+// End Timer 

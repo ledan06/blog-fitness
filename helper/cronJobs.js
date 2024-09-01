@@ -7,7 +7,7 @@ module.exports = () => {
         const now = new Date();
         now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
         const postsToPublish = await Post.find({
-            isPublished: false,
+            status: "timer",
             scheduledDate: { $lte: now },
         });
 

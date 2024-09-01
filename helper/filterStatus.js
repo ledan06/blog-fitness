@@ -13,7 +13,12 @@ module.exports = (query) => {
         name: "Bản nháp",
         status: "draft",
         class: ""
-    }
+    },
+    {
+        name: "Đã lên lịch",
+        status: "timer",
+        class: ""
+    },
  ]
     if(query.status){
         const index = filterStatus.findIndex(item => item.status == query.status)

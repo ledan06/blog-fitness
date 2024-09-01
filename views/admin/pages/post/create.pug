@@ -83,9 +83,9 @@ block main
                     )
             .inner-suggest
                 .inner-list 
-        div(class="form-group datetime")
-            label( for="scheduledDate") Hẹn giờ đăng
-            input(type="datetime-local" name="scheduledDate")           
+        //- div(class="form-group datetime")
+        //-     label( for="scheduledDate") Hẹn giờ đăng
+        //-     input(type="datetime-local" name="scheduledDate")           
         div(class="form-group form-check form-check-inline")
             input(
                 type="radio"
@@ -93,6 +93,7 @@ block main
                 id="statusPosted"
                 name="status"
                 value="posted"
+                form-check-status
                 checked
                 )
             label(for="statusPosted" class="form-check-label") Đăng
@@ -103,8 +104,20 @@ block main
                 id="statusDraft"
                 name="status"
                 value="draft"
+                form-check-status
                 )
             label(for="statusDraft" class="form-check-label") Bản Nháp
+
+        div(class="form-group form-check form-check-inline")
+            input(
+                type="radio"
+                class="form-check-input"
+                id="statusTimer"
+                name="status"
+                value="timer"
+                form-check-status
+                )
+            label(for="statusTimer" class="form-check-label") Hẹn giờ
         div(class="form-group")
             button(
                 type="submit"

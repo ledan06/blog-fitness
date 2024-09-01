@@ -47,7 +47,7 @@ module.exports.createPost = async (req, res)=>{
             res.redirect("back")
             return
         }
-    }   
+    }  
 
     if(req.file){
         req.body.thumbnail = `/uploads/${req.file.filename}`
@@ -77,13 +77,13 @@ module.exports.createPost = async (req, res)=>{
   
     const post = new Post(req.body)
     await post.save()
-    if(!req.body.scheduledDate){
-        await isPublicHelper.publishPost(post._id)
-    }
+    // if(!req.body.scheduledDate){
+    //     await isPublicHelper.publishPost(post._id)
+    // }
     req.flash("success", "Tạo bài viết thành công")
 
     res.redirect(`${systemConfig.prefixAdmin}/posts`)
-    // res.send("OK")
+   
 }
 
 //[GET] admin/posts/edit/:id
@@ -134,9 +134,9 @@ module.exports.editPatch = async (req, res)=>{
         }
     }  
 
-    if(!req.body.scheduledDate){
-        await isPublicHelper.publishPost(id)
-    }
+    // if(!req.body.scheduledDate){
+    //     await isPublicHelper.publishPost(id)
+    // }
   
     const hashtag = req.body.hashtag
     let hashtagId=[]

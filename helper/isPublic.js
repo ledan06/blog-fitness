@@ -3,7 +3,7 @@ const Post = require("../models/post.model");
 module.exports.publishPost = async (postId) => {
     await Post.updateOne({
         _id: postId
-    }, {isPublished: true})
+    }, {status: "posted"})
     // const post = await Post.findOne({
     //     _id: postId
     // })

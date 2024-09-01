@@ -93,7 +93,7 @@ block main
                                         button-change-status
                                         class="badge badge-success"
                                         ) Đã đăng
-                                else 
+                                else if (post.status == "draft")
                                     a(
                                         href="javascript:;" 
                                         data-status= "draft"
@@ -101,6 +101,15 @@ block main
                                         button-change-status
                                         class="badge badge-secondary"
                                         ) Nháp
+
+                                else 
+                                    a(
+                                        href="javascript:;" 
+                                        data-status= "timer"
+                                        data-id= post.id
+                                        button-change-status
+                                        class="badge badge-danger"
+                                        ) Đã lên lịch
                             td 
                                 a(  
                                     href=`${prefixAdmin}/posts/detail/${post.id}`

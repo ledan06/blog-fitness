@@ -85,9 +85,9 @@ block main
                 name="hashtag"
                 value = post.infoHashtags
                 )
-        div(class="form-group datetime")
-            label(for="scheduledDate" ) Hẹn giờ đăng
-            input(type="datetime-local" name="scheduledDate" value=post.date) 
+        //- div(class="form-group datetime")
+        //-     label(for="scheduledDate" ) Hẹn giờ đăng
+        //-     input(type="datetime-local" name="scheduledDate" value=post.date) 
 
         div(class="form-group form-check form-check-inline")
             input(
@@ -96,6 +96,7 @@ block main
                 id="statusPosted"
                 name="status"
                 value="posted"
+                form-check-status
                 checked = (post.status == "posted" ? true : false)
                 )
             label(for="statusPosted" class="form-check-label") Đăng
@@ -106,9 +107,27 @@ block main
                 id="statusDraft"
                 name="status"
                 value="draft"
+                form-check-status
                 checked = (post.status == "draft" ? true : false)
                 )
             label(for="statusDraft" class="form-check-label") Bản Nháp
+        div(class="form-group form-check form-check-inline")
+            input(
+                type="radio"
+                class="form-check-input"
+                id="statusTimer"
+                name="status"
+                value="timer"
+                date = post.date
+                form-check-status
+                checked = (post.status == "timer" ? true : false)
+                )
+            label(for="statusTimer" class="form-check-label") Hẹn giờ
+        //- if post.status === 'timer'
+        //-     div(class="form-group datetime")
+        //-         label(for="scheduledDate" ) Hẹn giờ đăng
+        //-         input(type="datetime-local" name="scheduledDate" value=post.date) 
+
         div(class="form-group")
             button(
                 type="submit"
