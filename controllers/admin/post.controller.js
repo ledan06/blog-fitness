@@ -49,10 +49,6 @@ module.exports.createPost = async (req, res)=>{
         }
     }  
 
-    if(req.file){
-        req.body.thumbnail = `/uploads/${req.file.filename}`
-    }
-    
 
     const hashtag = req.body.hashtag.split(/[,.]\s*/).map(tag => tag.trim()).filter(tag => tag.length > 0)
     let hashtagId =[]
@@ -77,9 +73,7 @@ module.exports.createPost = async (req, res)=>{
   
     const post = new Post(req.body)
     await post.save()
-    // if(!req.body.scheduledDate){
-    //     await isPublicHelper.publishPost(post._id)
-    // }
+  
     req.flash("success", "Tạo bài viết thành công")
 
     res.redirect(`${systemConfig.prefixAdmin}/posts`)

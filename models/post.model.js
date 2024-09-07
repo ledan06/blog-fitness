@@ -20,10 +20,6 @@ const postSchema = new mongoose.Schema(
             type: Date,
             required: false,
         },
-        isPublished: {
-            type: Boolean,
-            default: false,
-        },
         createdBy: {
             account_id: String,
             createAt: {
