@@ -3,6 +3,7 @@ const path = require('path');
 require("dotenv").config()
 const methodOverride = require('method-override')
 const bodyParser = require('body-parser')
+const moment = require("moment")
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const flash = require('express-flash')
@@ -44,6 +45,7 @@ app.use(express.static(`${__dirname}/public`));
 
 //App locals vartial
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
+app.locals.moment = moment;
 
 //Route
 adminRoute(app)

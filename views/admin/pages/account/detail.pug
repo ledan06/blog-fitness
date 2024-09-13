@@ -1,0 +1,51 @@
+extends ../../layouts/default.pug 
+include ../../mixins/alert.pug
+include ../../mixins/moment.pug
+block main 
+    .container
+        if account.avatar
+            .avatar-container
+                img(src=account.avatar alt="Avatar" class="avatar")
+        else
+            .avatar-container
+                span No avatar available
+        h1 Account Detail
+
+        .detail-item
+            label Full Name: 
+            span= account.fullName
+
+        .detail-item
+            label Email: 
+            span= account.email
+
+        .detail-item
+            label Phone: 
+            span= account.phone
+
+        .detail-item
+            label Role ID: 
+            span= role.title
+
+        .detail-item
+            label Status: 
+            span #{account.status}
+
+        .detail-item
+            label Deleted: 
+            span= account.deleted ? 'Yes' : 'No'
+
+        if account.deleted
+            .detail-item
+            label Deleted At: 
+            span= account.deleteA
+
+        .detail-item
+            label Created At: 
+            +formatDateTime(account.createdAt)
+
+        //- .detail-item
+        //-     label Updated At: 
+        //-     +formatDateTime(account.updatedAt)
+
+        a.btn(href=`${prefixAdmin}/accounts/`) Back to list

@@ -214,3 +214,60 @@
     background-color: #fff;
 }
 /* Hẹn giờ */
+
+
+  
+.container {
+max-width: 800px;
+margin: 50px auto;
+background-color: #fff;
+padding: 20px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+border-radius: 10px;
+}
+.container .avatar-container {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+.container h1 {
+text-align: center;
+color: #333;
+margin-bottom: 30px;
+}
+
+.container .detail-item {
+display: flex;
+justify-content: space-between;
+margin-bottom: 15px;
+}
+
+.container label {
+font-weight: bold;
+color: #555;
+}
+
+.container span {
+color: #333;
+text-align: center;
+}
+
+.container .avatar {
+width: 100px;
+height: 100px;
+border-radius: 50%;
+object-fit: cover;
+}
+
+.container .btn {
+display: inline-block;
+padding: 10px 20px;
+background-color: #007bff;
+color: white;
+text-decoration: none;
+border-radius: 5px;
+text-align: center;
+}
+
+.container .btn:hover {
+background-color: #0056b3;
+}

@@ -92,3 +92,20 @@ module.exports.editPatch = async (req, res)=>{
         res.redirect(`back`)
     }
 }
+
+//[GET] admin/account/detail
+module.exports.detail = async (req, res)=>{
+    const account = await Account.findOne({
+        deleted: false,
+        _id: req.params.id
+    })
+    const role = await Role.findOne({
+        deleted: false,
+        _id: account.role_id
+    }) 
+    res.render("admin/pages/account/detail", {
+        pageTitle: "Chi tiết tài khoản",
+        role: role,
+        account: account
+    })
+}
