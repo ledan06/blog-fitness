@@ -2,7 +2,6 @@ extends ../../layouts/default.pug
 include ../../mixins/alert.pug
 
 block main 
-
     h1(class="mb-4") Thêm mới sản phẩm 
 
     +alert-error(5000)
@@ -10,7 +9,7 @@ block main
     
 
     form(
-        action=`${prefixAdmin}/accounts/create`
+        action=`${prefixAdmin}/accounts/edit/${data.id}?_method=PATCH`
         method="POST"
         enctype="multipart/form-data"
     )
@@ -22,6 +21,7 @@ block main
                 id="fullName"
                 name="fullName"
                 required
+                value = data.fullName
             )
         div(class="form-group")
             label(for="email") Email *
@@ -31,6 +31,7 @@ block main
                 id="email"
                 name="email"
                 required
+                value = data.email
             )
         div(class="form-group")
             label(for="password") Mật khẩu *
@@ -39,7 +40,6 @@ block main
                 class="form-control"
                 id="password"
                 name="password"
-                required
             )
         div(class="form-group")
             label(for="phone") Số điện thoại
@@ -48,6 +48,7 @@ block main
                 class="form-control"
                 id="phone"
                 name="phone"
+                value = data.phone
             )
         div(
             class="form-group"
@@ -63,7 +64,7 @@ block main
                 upload-image-input
             )
             img(
-                src=""
+                src=data.avatar
                 class="image-preview"
                 upload-image-preview
             )
@@ -72,7 +73,10 @@ block main
             select(name="role_id" id="role_id" class="form-control") 
                 option(disabled) -- Chọn --
                 each item in roles
-                    option(value=item.id) #{item.title}
+                    option(
+                        value=item.id
+                        selected = (item.id == data.role_id ? true : false)
+                        ) #{item.title}
                 
         div(class="form-group form-check form-check-inline")
             input(
@@ -81,7 +85,7 @@ block main
                 id="statusActive"
                 name="status"
                 value="active"
-                checked
+                checked = (data.status == "active" ? true : false)
             )
             label(for="statusActive" class="form-check-label") Hoạt động
         div(class="form-group form-check form-check-inline")
@@ -91,10 +95,11 @@ block main
                 id="statusInActive"
                 name="status"
                 value="inactive"
+                checked = (data.status == "inactive" ? true : false)
             )
             label(for="statusInActive" class="form-check-label") Dừng Hoạt động
         div(class="form-group")
             button(
                 type="submit"
                 class="btn btn-primary"
-            ) Tạo mới
+            ) Cập nhật

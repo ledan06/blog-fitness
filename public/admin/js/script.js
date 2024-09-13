@@ -1,5 +1,5 @@
 //Buton status
-
+console.log("OK")
 const buttonStatus = document.querySelectorAll("[button-status]")
 
 if (buttonStatus.length > 0) {
@@ -36,13 +36,15 @@ if (uploadImage) {
   })
   // Delete Image
   const deleteImage = document.querySelector("[delete-image]")
-
-  deleteImage.addEventListener("click", (e) => {
-    e.preventDefault();
-    uploadImagePreview.src = ""
-    deleteImage.style.display = 'none'
-    uploadImageInput.value = ""
-  })
+  if(deleteImage){
+    deleteImage.addEventListener("click", (e) => {
+      e.preventDefault();
+      uploadImagePreview.src = ""
+      deleteImage.style.display = 'none'
+      uploadImageInput.value = ""
+    })
+  }
+  
   // End Delete Image
 }
 
