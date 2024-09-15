@@ -4,6 +4,10 @@ mongoose.plugin(slug);
 const postSchema = new mongoose.Schema(
     {
         title: String,
+        post_category_id: {
+            type: String,
+            default: ""
+        },
         description: String,
         thumbnail: String,
         status: String,

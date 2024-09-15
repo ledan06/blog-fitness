@@ -4,6 +4,7 @@ const searchRoutes = require("./search.route")
 const authRoutes = require("./auth.route")
 const roleRoutes = require("./role.route")
 const accountRoutes = require("./account.route")
+const categoryRoutes = require("./category.route")
 
 module.exports = (app)=>{
     app.use("/admin/dashboard", dashboardRoutes);
@@ -12,4 +13,5 @@ module.exports = (app)=>{
     app.use("/admin/auth", authRoutes);
     app.use("/admin/roles", roleRoutes);
     app.use("/admin/accounts", accountRoutes);
+    app.use("/admin/posts-category", categoryRoutes);
 }

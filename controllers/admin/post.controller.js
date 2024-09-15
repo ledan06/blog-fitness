@@ -3,8 +3,10 @@ const hashtagHelper = require("../../helper/hashtag.helper")
 const convertToSlugHelper = require("../../helper/convertToSlug")
 const isPublicHelper = require("../../helper/isPublic")
 const filterStatusHelpers = require("../../helper/filterStatus")
+const helperCreateTree = require("../../helper/createTree")
 const Hashtag = require("../../models/hashtag.model")
 const Post = require("../../models/post.model")
+const Category = require("../../models/category.model")
 //[GET] admin/posts
 module.exports.index = async(req, res)=>{
     let find = {
@@ -17,6 +19,7 @@ module.exports.index = async(req, res)=>{
     }
     
     const posts = await Post.find(find).sort({position: "desc"})
+    
 
     await hashtagHelper.hashtag(posts)
 
@@ -27,10 +30,16 @@ module.exports.index = async(req, res)=>{
     })
 }
 
-//[GET] admin/blogs/create
-module.exports.create = (req, res)=>{
+//[GET] admin/posts/create
+module.exports.create = async(req, res)=>{
+    const records = await Category.find({
+        deleted: false
+    })
+    const category = helperCreateTree.tree(records)
+
     res.render("admin/pages/post/create", {
-        pageTitle: "Tạo bài viết"
+        pageTitle: "Tạo bài viết",
+        category: category
     })
 }
 
@@ -77,6 +86,8 @@ module.exports.createPost = async (req, res)=>{
     req.flash("success", "Tạo bài viết thành công")
 
     res.redirect(`${systemConfig.prefixAdmin}/posts`)
+    // console.log(req.body)
+    // res.send("OK")
    
 }
 
@@ -85,6 +96,11 @@ module.exports.edit = async (req, res)=>{
     const formatDate = (date) => {
         return date.toISOString().slice(0, 16);
     };
+    const records = await Category.find({
+        deleted: false
+    })
+    const category = helperCreateTree.tree(records)
+
     const id = req.params.id
     const post = await Post.findOne({
         _id: id,
@@ -105,6 +121,7 @@ module.exports.edit = async (req, res)=>{
     res.render("admin/pages/post/edit", {
         pageTitle: "Chỉnh sửa bài viết",
         post: post,
+        category: category
     })
 }
 
