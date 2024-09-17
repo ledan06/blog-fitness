@@ -7,7 +7,6 @@ module.exports.index = async (req, res)=>{
         deleted: false
     })
     const newRecords = helperCreateTree.tree(category)
-    console.log(newRecords)
     res.render("admin/pages/category/index", {
         pageTitle: "Danh mục",
         records: newRecords

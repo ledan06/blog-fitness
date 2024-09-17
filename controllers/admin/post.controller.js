@@ -77,7 +77,9 @@ module.exports.createPost = async (req, res)=>{
             hashtagId.push(existhashtag.id)
         }
     }
-   
+    req.body.createdBy = {
+        account_id: res.locals.user.id
+    }
     req.body.hashtag = hashtagId
   
     const post = new Post(req.body)
