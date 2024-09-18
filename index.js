@@ -11,6 +11,7 @@ const database = require("./config/database")
 
 const cronJobs = require('./helper/cronJobs'); 
 const adminRoute = require("./routes/admin/index.route")
+const clientRoute = require("./routes/client/index.route")
 
 database.connect()
 
@@ -49,7 +50,7 @@ app.locals.moment = moment;
 
 //Route
 adminRoute(app)
-
+clientRoute(app)
 app.listen(port, ()=> {
     console.log(`App listening on port ${port}`)
 })

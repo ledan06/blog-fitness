@@ -1,0 +1,17 @@
+extends ../../layout/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/post-layout.pug
+block main
+    .section-post-featured.my-5
+        .container
+            .row   
+                .col-12 
+                    +box-head("Bài viết nổi bật")
+            //- +post-grid(productsFeatured)
+
+    .section-post-new.my-5
+        .container
+            .row   
+                .col-12 
+                    +box-head("Bài viết mới nhất")
+            +post-grid(posts)

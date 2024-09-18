@@ -1,0 +1,14 @@
+mixin post-item(item)
+    .col-4.mb-3 
+        .post-item   
+            .inner-image 
+                img(src=item.thumbnail,
+                alt=item.title)
+                if(item.featured == "1")
+                    .inner-featured Nổi bật
+            .inner-content 
+                h3.inner-title #{item.title}
+                a(
+                    href=`/post/detail/${item.slug}`
+                    class="btn btn-primary btn-sm"
+                ) Đọc tiếp  <i class="fa-solid fa-arrow-right"></i>

@@ -1,0 +1,51 @@
+extends ../../layout/default.pug 
+include ../../mixins/box-head.pug
+block main 
+    .post-detail 
+        .container.my-5
+            .row 
+                .col-12 
+                    .inner-thumb 
+                        img(src=post.thumbnail, alt=post.title)
+                .col-12  
+                    h1(class="inner-title") #{post.title}
+                    if (post.category)
+                        div(class="inner-category")
+                            span Danh mục: 
+                            a(href=`/products/${post.category.slug}`) #{post.category.title}
+
+        .container.my-5
+            .row 
+                .col-12 
+                    +box-head("Nội dung")
+                    .inner-desc !{post.description}
+                .col-12 
+                    .inner-hastag
+                        each item in post.hastagTitle
+                            a(class="badge badge-info") #{item}
+
+        .container.my-3
+            .row
+                .col-12.text-center
+                    button.btn.btn-danger#like-button
+                        i.fas.fa-heart
+                        span.ml-2 Like bài viết
+                    span#like-count.ml-2 0 lượt thích
+
+        .container.my-5
+            .row
+                .col-12
+                    +box-head("Bình luận")
+                    .comment-section
+                        form#comment-form(action="/post/comment" method="POST")
+                            .form-group
+                                label(for="comment") Viết bình luận:
+                                textarea.form-control#comment(name="comment" rows="4" required)
+                            button.btn.btn-primary.mt-2(type="submit") Gửi bình luận
+
+                        .comments-list.mt-4
+                            //- each comment in comments
+                            //-     .comment-item
+                            //-         strong #{comment.author}
+                            //-         p #{comment.content}
+                            //-         small.text-muted #{comment.createdAt}
