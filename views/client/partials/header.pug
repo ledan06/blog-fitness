@@ -9,22 +9,25 @@ header.header
                         img(src="/client/images/PinClipart.com_fitness-images-clip-art_93160.png", alt="Logo")
 
             .col-5 
-                form(
-                    action="/search"
-                    method="GET"
-                )
-                    div(class="form-group d-flex mb-0")
-                        input(
-                            type="text"
-                            placeholder="Nhập từ khóa..."
-                            class="form-control"
-                            name="keyword"
-                            value=keyword
-                        )
-                        button(
-                            type="submit"
-                            class="btn btn-primary"
-                        ) Tìm
+                .box-search
+                    form(
+                        action="/search/result"
+                        method="GET"
+                    )
+                        div(class="form-group d-flex mb-0")
+                            input(
+                                type="text"
+                                placeholder="Nhập từ khóa..."
+                                class="form-control"
+                                name="keyword"
+                                value=keyword
+                            )
+                            button(
+                                type="submit"
+                                class="btn btn-primary"
+                            ) Tìm
+                    .inner-suggest
+                        .inner-list
             .col-4 
                 .inner-menu     
                     ul 
