@@ -1,5 +1,6 @@
 extends ../../layout/default.pug 
 include ../../mixins/box-head.pug
+include ../../mixins/moment.pug
 block main 
     .post-detail 
         .container.my-5
@@ -13,6 +14,9 @@ block main
                         div(class="inner-category")
                             span Danh mục: 
                             a(href=`/products/${post.category.slug}`) #{post.category.title}
+                        div(class="inner-category")
+                            span Đăng ngày: 
+                                +formatDate(post.createdAt)
 
         .container.my-5
             .row 

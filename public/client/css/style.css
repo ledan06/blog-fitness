@@ -144,6 +144,10 @@
 .sub-menu ul li:hover > ul {
   display: block;
 }
+.sub-menu .category-link {
+  pointer-events: none; /* Ngăn click vào category chính */
+}
+
 /* end sub-menu */
 
 /* product-detail */

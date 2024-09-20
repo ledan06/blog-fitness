@@ -1,4 +1,4 @@
-//- include ../mixins/sub-menu.pug
+include ../mixins/sub-menu.pug
 
 header.header 
     .container  
@@ -35,12 +35,12 @@ header.header
                             a(href="/") Trang chủ 
                         li 
                             a(href="/") Về chúng tôi
-                        //- li(class="sub-menu")
-                        //-     -const pathProduct = "/products"
-                        //-     a(href="/products") Sản phẩm
-                        //-         +sub-menu(layoutProductCategory, pathProduct)
-                        li 
-                            a(href="/") Bài viết
+                        li(class="sub-menu")
+                            -const pathPost = "/post"
+                            a(href="/post") Bài viết
+                                +sub-menu(layoutCategory, pathPost)
+                        //- li 
+                        //-     a(href="/") Bài viết
                         //- if(user)
                         //-     li 
                         //-         a(href="/users/friends") Bạn bè

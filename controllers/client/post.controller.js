@@ -1,6 +1,8 @@
 const Post = require("../../models/post.model")
 const Category = require("../../models/category.model")
 const Hastag = require("../../models/hashtag.model")
+
+//[GET]/post/detail/:slug
 module.exports.index = async(req, res) => {
     const slug = req.params.slug
 
@@ -35,4 +37,23 @@ module.exports.index = async(req, res) => {
         post: post
     })
     
+}
+
+//[GET]/post/:slugCategory
+module.exports.category = async(req, res) => {
+    const slug = req.params.slugCategory
+    const category = await Category.findOne({
+        deleted: false,
+        slug: slug
+    })
+    const posts = await Post.find({
+        deleted: false,
+        status: "posted",
+        post_category_id: category.id
+    }).sort({ position: "desc"})
+    res.render("client/pages/post/category",{
+        pageTitle: `${category.title}`,
+        posts: posts
+    }
+    )
 }

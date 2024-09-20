@@ -1,0 +1,9 @@
+mixin sub-menu(items, path)
+    ul 
+        each item in items 
+            li  
+                if item.children && item.children.length > 0
+                    a(href="#" class="category-link") #{item.title}
+                    +sub-menu(item.children, path)
+                else 
+                    a(href=`${path}/${item.slug}`) #{item.title}
