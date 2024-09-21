@@ -31,10 +31,10 @@ block main
         .container.my-3
             .row
                 .col-12.text-center
-                    button.btn.btn-danger#like-button
+                    button.btn.btn-danger#like-button(button-like=post.id)
                         i.fas.fa-heart
                         span.ml-2 Like bài viết
-                    span#like-count.ml-2 0 lượt thích
+                    span#like-count.ml-2 #{post.like} Lượt thích
 
         .container.my-5
             .row

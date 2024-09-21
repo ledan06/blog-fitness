@@ -14,6 +14,10 @@ const postSchema = new mongoose.Schema(
         featured: String,
         position: Number,
         hashtag: Array,
+        like: {
+            type: Number,
+            default: 0
+        },
         slug: {
             type: String,
             slug: "title",

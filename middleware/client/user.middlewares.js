@@ -12,3 +12,22 @@ module.exports.infoUser = async (req, res, next) => {
     }
     next();
 }
+
+module.exports.checkLogin = async (req, res, next) => {
+    if(req.cookies.tokenUser){
+        const user = await User.findOne({
+            tokenUser: req.cookies.tokenUser,
+            deleted: false,
+            status: "active"
+        }).select("-password")
+        if(user){
+            res.locals.user = user
+        }
+    }else {
+        return res.json({ 
+            code: 401,
+            message: "Bạn cần đăng nhập để thích bài viết" });
+    }
+    
+    next();
+}

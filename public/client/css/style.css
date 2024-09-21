@@ -223,14 +223,19 @@
   cursor: pointer;
 }
 
-.post-detail #like-button.liked {
+.post-detail #like-button {
   background-color: #dc3545;
   color: white;
 }
 
+
 .post-detail #like-count {
   font-weight: bold;
   color: #333;
+}
+.post-detail #like-count.active {
+  font-weight: bold;
+  color: #dc3545;
 }
 
 /* Phần bình luận */

@@ -10,7 +10,7 @@ module.exports.index = async(req, res) => {
         deleted: false,
         status: "posted",
         slug: slug
-    }).select("title thumbnail description createdAt post_category_id featured hashtag slug")
+    })
     if(post.post_category_id){
         const id = post.post_category_id
         const category = await Category.findOne({
@@ -56,4 +56,27 @@ module.exports.category = async(req, res) => {
         posts: posts
     }
     )
+}
+
+//[Patch]/like/:typeLike/:idPost
+module.exports.like = async(req, res) => {
+    const typeLike = req.params.typeLike
+    const idPost = req.params.idPost
+    const post = await Post.findOne({
+        _id: idPost,
+        deleted: false,
+        status: "posted"
+    })
+
+    let likeUpdate = typeLike == "like" ? post.like + 1 : post.like -1
+
+    await Post.updateOne(
+        { _id: idPost }, { like: likeUpdate }
+    )
+
+    res.json({
+        code: 200,
+        message: "Thành công!",
+        like: likeUpdate
+    })
 }
