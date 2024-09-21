@@ -39,20 +39,12 @@ header.header
                             -const pathPost = "/post"
                             a(href="/post") Bài viết
                                 +sub-menu(layoutCategory, pathPost)
-                        //- li 
-                        //-     a(href="/") Bài viết
-                        //- if(user)
-                        //-     li 
-                        //-         a(href="/users/friends") Bạn bè
-                        //-     li 
-                        //-         a(href="/rooms-chat") Phòng chat
-                        //-     li 
-                        //-         a(href="/user/info") #{user.fullName}
-                        //-     li 
-                        //-         a(href="/user/logout") Đăng xuất
-                        //- else 
-                        //-     li 
-                        //-         a(href="/user/register") Đăng ký 
-                        //-     li 
-                        //-         a(href="/user/login") Đăng Nhập 
+                        if(user)
+                            li  
+                                a(href="/user/logout") Đăng xuất
+                        else
+                            li 
+                                a(href="/user/register") Đăng ký
+                            li  
+                                a(href="/user/login") Đăng Nhập
                         
