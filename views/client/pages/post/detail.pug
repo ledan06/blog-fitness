@@ -34,7 +34,7 @@ block main
                     button.btn.btn-danger#like-button(button-like=post.id)
                         i.fas.fa-heart
                         span.ml-2 Like bài viết
-                    span#like-count.ml-2 #{post.like} Lượt thích
+                    span(id="like-count" class=`ml-2 ${isLike ? 'active' : ''}` ) #{post.like} Lượt thích
 
         .container.my-5
             .row

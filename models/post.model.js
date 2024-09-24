@@ -14,6 +14,7 @@ const postSchema = new mongoose.Schema(
         featured: String,
         position: Number,
         hashtag: Array,
+        likeBy: Array,
         like: {
             type: Number,
             default: 0
