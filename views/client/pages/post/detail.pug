@@ -41,15 +41,21 @@ block main
                 .col-12
                     +box-head("Bình luận")
                     .comment-section
-                        form#comment-form(action="/post/comment" method="POST")
-                            .form-group
-                                label(for="comment") Viết bình luận:
-                                textarea.form-control#comment(name="comment" rows="4" required)
-                            button.btn.btn-primary.mt-2(type="submit") Gửi bình luận
-
-                        .comments-list.mt-4
-                            //- each comment in comments
-                            //-     .comment-item
-                            //-         strong #{comment.author}
-                            //-         p #{comment.content}
-                            //-         small.text-muted #{comment.createdAt}
+                        if user 
+                            form#comment-form
+                                .form-group
+                                    label(for="comment") Viết bình luận:
+                                    textarea.form-control#comment(name="comment" rows="4" required)
+                                button.btn.btn-primary.mt-2(type="submit" post-id = post.id) Gửi bình luận
+                        else
+                            p.text-danger Bạn cần đăng nhập để gửi bình luận.
+                            a.btn.btn-primary(href="/user/login") Đăng nhập
+                        .comment-list
+                            each comment in comments
+                                .comment
+                                    strong= comment.userName
+                                    p= comment.comment
+                                    small.text-muted= comment.createdAt.toLocaleString()
+                                    if user && user.id === comment.userId
+                                        button.btn.btn-danger.btn-sm.delete-comment-btn(data-id=comment.commentId)
+                                            <i class="fa-solid fa-trash"></i>

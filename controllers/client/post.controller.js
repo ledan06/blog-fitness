@@ -2,6 +2,7 @@ const Post = require("../../models/post.model")
 const Category = require("../../models/category.model")
 const Hastag = require("../../models/hashtag.model")
 const User = require("../../models/user.model")
+const Comment = require("../../models/comment.model")
 
 //[GET]/post/detail/:slug
 module.exports.index = async(req, res) => {
@@ -21,7 +22,30 @@ module.exports.index = async(req, res) => {
             isActive = true
         }
     }
-    
+    let comments = []
+    if(post.commentBy){
+        for (const item of post.commentBy) {
+            const comment = await Comment.findOne({
+                _id: item,
+                deleted: false
+            })
+            if(comment){
+                const user = await User.findOne({
+                    _id: comment.userId,
+                    deleted: false
+                })
+                const detailComment = {
+                    comment: comment.content,
+                    commentId: comment.id,
+                    createdAt: comment.createdAt,
+                    userName: user.fullName,
+                    userId: comment.userId
+                }
+                comments.push(detailComment)
+            }
+            
+        }
+    }
     if(post.post_category_id){
         const id = post.post_category_id
         const category = await Category.findOne({
@@ -46,7 +70,8 @@ module.exports.index = async(req, res) => {
     res.render("client/pages/post/detail", {
         pageTitle: post.title,
         post: post,
-        isLike: isActive
+        isLike: isActive,
+        comments: comments.reverse()
     })
     
 }
@@ -110,11 +135,46 @@ module.exports.like = async(req, res) => {
         }
     }
 
-    
-
     res.json({
         code: 200,
         message: "Thành công!",
         like: likeUpdate || post.like
     })
+}
+
+//[POST] post/comment/:idPost
+module.exports.comment = async(req, res)=> {
+    const postId = req.params.idPost
+    const userId = res.locals.user.id 
+    const content = req.body.comment
+    const comments = new Comment({
+        userId: userId, postId: postId, content: content
+    })
+    await comments.save()
+
+    await Post.updateOne(
+        { _id: postId },
+        {
+            $push: { commentBy: comments.id }
+        }
+    )
+    res.json({
+        code: 200,
+        message: "Thành công",
+        content: content,
+        user: res.locals.user,
+        createdAt: new Date(),
+        
+    })
+}
+
+//[DELETE] post/delete/:idComment
+module.exports.commentDelete = async (req, res)=> {
+    const id = req.params.idComment
+    await Comment.deleteOne({ _id: id})
+    res.json({
+        code: 200,
+        message: "Thành công",
+    })
+
 }

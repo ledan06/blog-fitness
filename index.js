@@ -23,6 +23,8 @@ const port = process.env.PORT
 //Đặt thời gian đăng bài 
 cronJobs()
 
+app.use(express.json());
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 

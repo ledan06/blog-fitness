@@ -239,7 +239,7 @@
 }
 
 /* Phần bình luận */
-.post-detail.comment-section {
+/* .post-detail.comment-section {
   margin-top: 20px;
 }
 
@@ -259,6 +259,111 @@
 
 .post-detail .comment-item small.text-muted {
   font-size: 0.9rem;
+} */
+.post-detail .comment-section {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.post-detail .comment-list {
+  margin-bottom: 20px;
+}
+
+.post-detail .comment {
+  padding: 15px;
+  border-bottom: 1px solid #e9ecef;
+  position: relative;
+}
+
+.post-detail .comment strong {
+  font-size: 1.1rem;
+  color: #007bff;
+}
+
+.post-detail .comment p {
+  font-size: 1rem;
+  margin: 5px 0;
+}
+
+.post-detail .comment small {
+  color: #6c757d;
+}
+
+.post-detail #comment-form {
+  margin-top: 10px;
+}
+
+.post-detail #comment-form .form-group label {
+  font-weight: bold;
+}
+
+.post-detail #comment-form .form-control {
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+  transition: all 0.3s ease;
+}
+
+.post-detail #comment-form .form-control:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 5px rgba(128, 189, 255, 0.5);
+}
+
+.post-detail #comment-form .btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 4px;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.post-detail #comment-form .btn:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.post-detail .text-danger {
+  margin-top: 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #dc3545;
+}
+
+.post-detail .text-danger a {
+  margin-left: 10px;
+  color: white;
+  background-color: #dc3545;
+  border-color: #dc3545;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.post-detail .text-danger a:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+.post-detail .comment .delete-comment-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Thay đổi màu khi hover vào nút Xóa */
+.post-detail .comment .delete-comment-btn:hover {
+  background-color: #c82333;
 }
 
 /* show Alert */
